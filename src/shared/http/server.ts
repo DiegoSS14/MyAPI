@@ -2,7 +2,7 @@
 class Server {
     private app: string
 
-    constructor(text?: string) {
-        this.app = text ?? "Hello Dev!"
+    constructor(info?: string) {
+        this.app = info ?? 'Hello Dev!'
     }
 }
