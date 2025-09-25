@@ -3,13 +3,13 @@ import 'express-async-errors'
 import cors from 'cors'
 import 'dotenv/config'
 
+import { routes } from './routes/index.js'
+
 const app = express()
 app.use(express.json())
 app.use(cors())
 
-app.get('/', (request, response) => {
-    return response.status(200).json({message: 'Olá Dev!'})
-})
+app.use(routes)
 
 const port = process.env.PORT;
 
