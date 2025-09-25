@@ -1,8 +1,15 @@
+import express from 'express'
+import 'express-async-errors'
 
-class Server {
-    private app: string
+const app = express()
+app.use(express.json())
 
-    constructor(info?: string) {
-        this.app = info ?? 'Hello Dev!'
-    }
-}
+app.get('/', (request, response) => {
+    return response.status(200).json({message: 'Olá Dev!'})
+})
+
+const port: number = 3000
+
+app.listen(port, () => {
+    console.log(`Application is running on port ${port}`)
+})
