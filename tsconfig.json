@@ -41,12 +41,14 @@
         "moduleDetection": "force",
         "skipLibCheck": true,
 
-        "baseUrl": ".",
-        "paths": {
-            "@shared/*": ["src/shared/*"],
-            "@users/*": ["src/users/*"],
-            "@roles/*": ["src/roles/*"]
-        }
+        "strictPropertyInitialization": false
+
+        // "baseUrl": ".",
+        // "paths": {
+        //     "@shared/*": ["src/shared/*"],
+        //     "@users/*": ["src/users/*"],
+        //     "@roles/*": ["src/roles/*"]
+        // }
     },
     "include": ["src"],
     "exclude": ["dist", "node_modules"]
