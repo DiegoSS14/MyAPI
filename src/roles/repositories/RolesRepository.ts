@@ -15,6 +15,10 @@ export class RolesRepository {
         return this.roles
     }
 
+    findByName(name: string): Role | undefined {
+        return this.roles.find(role => role.name === name)
+    }
+
     create({ name }: RoleDTO) {
         const role = new Role()
 
