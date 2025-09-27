@@ -20,12 +20,14 @@ export class RolesRepository {
     }
 
     create({ name }: RoleDTO) {
-        const role = new Role()
+        let role: Role = new Role()
 
-        Object.assign(role, {
-            name: name,
-            created_at: new Date(),
-        })
+        // Object.assign(role, {
+        //     name: name,
+        //     created_at: new Date(),
+        // })
+
+        role = { ...role, ...{ name: name, created_at: new Date() } }
 
         this.roles.push(role)
         return role
