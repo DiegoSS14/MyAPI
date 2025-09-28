@@ -1,10 +1,8 @@
 import express from "express";
-import { RolesRepository } from "../../repositories/RolesRepository.js";
 import { createRoleController } from "../../useCases/createRole/index.js";
 import { listRolesController } from "../../useCases/listRoles/index.js";
 
 const rolesRouter = express()
-const rolesRepository = new RolesRepository()
 
 
 rolesRouter.get('/', (request, response) => {
@@ -15,4 +13,5 @@ rolesRouter.post("/", (request, response) => {
     return createRoleController.handle(request, response)
 })
 
-export { rolesRouter }
+export { rolesRouter };
+

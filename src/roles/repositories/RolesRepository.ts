@@ -6,9 +6,18 @@ type RoleDTO = {
 
 export class RolesRepository {
     private roles: Array<Role>
+    private static INSTANCE: RolesRepository
 
-    constructor() {
+    private constructor() {
         this.roles = []
+    }
+
+    public static getInstance() {
+        if(!RolesRepository.INSTANCE) {
+            RolesRepository.INSTANCE = new RolesRepository()
+        }
+
+        return RolesRepository.INSTANCE
     }
 
     findAll() {

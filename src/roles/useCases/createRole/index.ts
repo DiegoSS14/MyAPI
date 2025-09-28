@@ -1,8 +1,8 @@
 import { RolesRepository } from "../../repositories/RolesRepository.js";
-import { CreateRoleController } from "./createRoleController.js";
-import { CreateRoleUseCase } from "./createRoleUseCase.js";
+import { CreateRoleController } from "./CreateRoleController.js";
+import { CreateRoleUseCase } from "./CreateRoleUseCase.js";
 
 
-const rolesRepository = new RolesRepository
+const rolesRepository = RolesRepository.getInstance()
 const createRoleUseCase = new CreateRoleUseCase(rolesRepository)
 export const createRoleController = new CreateRoleController(createRoleUseCase)
