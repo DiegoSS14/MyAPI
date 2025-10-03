@@ -13,5 +13,5 @@ rolesRouter.post("/", (request, response) => {
     return createRoleController.handle(request, response)
 })
 
-export { rolesRouter };
+export { rolesRouter }
 

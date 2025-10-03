@@ -1,0 +1,4 @@
+Comandos Typeorm
+
+#Rodar migrations
+npx typeorm-ts-node-esm migration:run -- -d src/shared/typeorm/index.ts

@@ -41,7 +41,11 @@
         "moduleDetection": "force",
         "skipLibCheck": true,
 
-        "strictPropertyInitialization": false
+        "strictPropertyInitialization": false,
+
+        // Essas duas funções são necessárias para as entidades do TYPEORM funcionarem
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
 
         // "baseUrl": ".",
         // "paths": {
