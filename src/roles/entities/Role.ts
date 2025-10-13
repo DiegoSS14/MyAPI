@@ -1,17 +1,17 @@
 import { randomUUID } from "crypto";
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 
-@Entity()
+@Entity('roles')
 export class Role{
 
     @PrimaryColumn()
-    id: string
+    id!: string
 
     @Column()
-    name: string
+    name!: string
 
     @CreateDateColumn()
-    created_at: Date
+    created_at!: Date
 
     constructor() {
         this.id = randomUUID()

@@ -6,13 +6,13 @@ type RoleDTO = {
     name: string
 }
 
-type PaginateParams = {
+export type PaginateParams = {
     page: number
     skip: number
     take: number
 }
 
-type RolesPaginateProperties = {
+export type RolesPaginateProperties = {
     per_page: number
     total: number
     current_page: number

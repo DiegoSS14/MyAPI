@@ -1,7 +1,8 @@
+import 'reflect-metadata'
+
 import 'dotenv/config'
 import { app } from './app.js';
 
-import 'reflect-metadata'
 import { dataSource } from '../typeorm/index.js'
 
 dataSource.initialize().then(() => {
