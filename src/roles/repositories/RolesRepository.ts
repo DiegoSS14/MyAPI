@@ -68,4 +68,8 @@ export class RolesRepository {
     async save(role: Role): Promise<Role> {
         return await this.repository.save(role)
     }
+
+    async delete(role: Role): Promise<void> {
+        await this.repository.remove(role)
+    }
 }

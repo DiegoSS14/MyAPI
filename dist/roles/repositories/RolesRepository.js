@@ -37,4 +37,7 @@ export class RolesRepository {
     async save(role) {
         return await this.repository.save(role);
     }
+    async delete(role) {
+        await this.repository.remove(role);
+    }
 }
