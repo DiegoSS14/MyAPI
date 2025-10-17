@@ -13,7 +13,7 @@
         "/roles": {
             "post": {
                 "tags": [
-                    "Role"
+                    "Roles"
                 ],
                 "summary": "Create a Role",
                 "description": "Create a new role",
@@ -59,12 +59,138 @@
                 }
             },
             "get": {
-                "tags": ["Role"],
+                "tags": [
+                    "Roles"
+                ],
                 "summary": "List all roles",
                 "description": "Return all roles paginated",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of the page",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "example": "page=1"
+                        },
+                        "style": "label"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of registers per page",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "example": "limit=15"
+                        },
+                        "style": "label"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Sucess."
+                        "description": "Sucess.",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "per_page": 15,
+                                    "total": 2,
+                                    "current_page": 1,
+                                    "data": [
+                                        {
+                                            "id": "debf66eb-d940-439e-aa82-137d9b8f21a6",
+                                            "name": "Users",
+                                            "created_at": "2022-07-16T14:10:28.000Z"
+                                        },
+                                        {
+                                            "id": "74c8f2c7-5d9d-4c80-872c-c4f619fe6e78",
+                                            "name": "Admin",
+                                            "created_at": "2022-07-16T14:10:48.000Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/roles/{id}": {
+            "put": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Update a role",
+                "description": "Update a role",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Identity a role",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "style": "label"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of registers per page",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "example": "limit=15"
+                        },
+                        "style": "label"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": "Administrator"
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucess.",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "per_page": 15,
+                                    "total": 2,
+                                    "current_page": 1,
+                                    "data": [
+                                        {
+                                            "id": "debf66eb-d940-439e-aa82-137d9b8f21a6",
+                                            "name": "Users",
+                                            "created_at": "2022-07-16T14:10:28.000Z"
+                                        },
+                                        {
+                                            "id": "74c8f2c7-5d9d-4c80-872c-c4f619fe6e78",
+                                            "name": "Admin",
+                                            "created_at": "2022-07-16T14:10:48.000Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Role not found"
                     }
                 }
             }
