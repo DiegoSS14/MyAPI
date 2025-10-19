@@ -71,21 +71,21 @@
                         "description": "Number of the page",
                         "required": false,
                         "schema": {
-                            "type": "number",
-                            "example": "page=1"
+                            "type": "integer",
+                            "example": 1
                         },
-                        "style": "label"
+                        "style": "form"
                     },
                     {
-                        "name": "page",
+                        "name": "limit",
                         "in": "query",
                         "description": "Number of registers per page",
                         "required": false,
                         "schema": {
-                            "type": "number",
-                            "example": "limit=15"
+                            "type": "integer",
+                            "example": 1
                         },
-                        "style": "label"
+                        "style": "form"
                     }
                 ],
                 "responses": {
@@ -170,6 +170,64 @@
                                     }
                                 }
                             }
+                        },
+                        "example": {
+                            "id": "8460b163-d4e8-4936-a17b-061c055ac6a9",
+                            "name": "Administrator",
+                            "created_at": "2025-10-07T17:06:52.000Z"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Role not found"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Find role by id",
+                "description": "Return role based on id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Identity a role",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "style": "simple"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "example": {
+                            "id": "8460b163-d4e8-4936-a17b-061c055ac6a9",
+                            "name": "Administrator",
+                            "created_at": "2025-10-07T17:06:52.000Z"
                         }
                     },
                     "400": {
