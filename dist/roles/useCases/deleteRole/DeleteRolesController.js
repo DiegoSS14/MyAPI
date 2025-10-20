@@ -1,10 +1,10 @@
+import { DeleteRolesUseCase } from "./DeleteRolesUseCase.js";
+import { container } from "tsyringe";
 export class DeleteRolesController {
-    constructor(deleteRolesUseCase) {
-        this.deleteRolesUseCase = deleteRolesUseCase;
-    }
     async handle(request, response) {
+        const deleteRolesUseCase = container.resolve(DeleteRolesUseCase);
         const { id } = request.params;
-        const roles = await this.deleteRolesUseCase.execute({ id });
+        await deleteRolesUseCase.execute({ id });
         return response.status(204).send();
     }
 }

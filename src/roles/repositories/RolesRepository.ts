@@ -1,38 +1,13 @@
 import { Role } from "../entities/Role.js"
 import { dataSource } from "../../shared/typeorm/index.js"
 import type { Repository } from "typeorm"
+import { IRolesRepository, PaginateParams, RoleDTO, RolesPaginateProperties } from "./IRolesRepository.js"
 
-type RoleDTO = {
-    name: string
-}
-
-export type PaginateParams = {
-    page: number
-    skip: number
-    take: number
-}
-
-export type RolesPaginateProperties = {
-    per_page: number
-    total: number
-    current_page: number
-    data: Role[]
-}
-
-export class RolesRepository {
+export class RolesRepository implements IRolesRepository {
     private repository: Repository<Role>
-    private static INSTANCE: RolesRepository
 
-    private constructor() {
+    constructor() {
         this.repository = dataSource.getRepository(Role)
-    }
-
-    public static getInstance() {
-        if (!RolesRepository.INSTANCE) {
-            RolesRepository.INSTANCE = new RolesRepository()
-        }
-
-        return RolesRepository.INSTANCE
     }
 
     async findAll({ page, skip, take }: PaginateParams): Promise<RolesPaginateProperties> {

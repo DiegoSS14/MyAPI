@@ -1,12 +1,12 @@
 import { type Request, type Response } from "express";
-import type { ShowRolesUseCase } from "./ShowRolesUseCase.js";
+import { ShowRolesUseCase } from "./ShowRolesUseCase.js";
+import { container } from "tsyringe";
 
 export class ShowRolesController {
-    constructor(private showRolesUseCase: ShowRolesUseCase) { }
-
     async handle(request: Request, response: Response): Promise<Response | null> {
+        const showRoleUseCase = container.resolve(ShowRolesUseCase)
         const { id } = request.params
-        const roles = await this.showRolesUseCase.execute({ id })
+        const roles = await showRoleUseCase.execute({ id })
         return response.json(roles)
     }
 }

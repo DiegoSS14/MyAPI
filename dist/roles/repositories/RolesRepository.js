@@ -4,12 +4,6 @@ export class RolesRepository {
     constructor() {
         this.repository = dataSource.getRepository(Role);
     }
-    static getInstance() {
-        if (!RolesRepository.INSTANCE) {
-            RolesRepository.INSTANCE = new RolesRepository();
-        }
-        return RolesRepository.INSTANCE;
-    }
     async findAll({ page, skip, take }) {
         const [roles, count] = await this.repository
             .createQueryBuilder()

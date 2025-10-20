@@ -6,6 +6,7 @@ import { AppError } from '../error/AppError.js';
 import { routes } from './routes/index.js';
 import swaggerFile from '../../../swagger.json' with { type: "json" }; // Importando com type json
 import { isCelebrateError, Segments } from 'celebrate';
+import '../container/index.js'; // Importa a instância do repositório
 const app = express();
 app.use(express.json());
 app.use(cors());

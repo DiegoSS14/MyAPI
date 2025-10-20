@@ -132,7 +132,7 @@
                         "schema": {
                             "type": "string"
                         },
-                        "style": "label"
+                        "style": "simple"
                     }
                 ],
                 "requestBody": {
@@ -146,7 +146,9 @@
                                     }
                                 }
                             },
-                            "example": "Administrator"
+                            "example": {
+                                "name": "Administrator"
+                            }
                         }
                     }
                 },

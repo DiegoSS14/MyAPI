@@ -1,11 +1,17 @@
 import express from "express";
-import { _createRoleController } from "../../useCases/createRole/index.js";
-import { listRolesController } from "../../useCases/listRoles/index.js";
-import { showRolesController } from "../../useCases/showRole/index.js";
-import { editRolesController } from "../../useCases/editRole/index.js";
-import { deleteRolesController } from "../../useCases/deleteRole/index.js";
 import { celebrate, Joi, Segments } from "celebrate";
+import { container } from "tsyringe";
+import { ListRolesController } from "../../useCases/listRoles/ListRolesController.js";
+import { ShowRolesController } from "../../useCases/showRole/ShowRoleController.js";
+import { CreateRoleController } from "../../useCases/createRole/CreateRoleController.js";
+import { EditRolesController } from "../../useCases/editRole/EditRolesController.js";
+import { DeleteRolesController } from "../../useCases/deleteRole/DeleteRolesController.js";
 const rolesRouter = express();
+const listRolesController = container.resolve(ListRolesController);
+const showRolesController = container.resolve(ShowRolesController);
+const _createRoleController = container.resolve(CreateRoleController);
+const editRolesController = container.resolve(EditRolesController);
+const deleteRolesController = container.resolve(DeleteRolesController);
 rolesRouter.get('/', (request, response) => {
     return listRolesController.handle(request, response);
 });
