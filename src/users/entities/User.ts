@@ -1,8 +1,9 @@
 import { randomUUID } from "crypto";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
+import { Role } from "../../roles/entities/Role.js";
 
-@Entity('roles')
-class Role {
+@Entity('users')
+class User {
 
     @Column()
     private id!: string
@@ -24,6 +25,9 @@ class Role {
 
     @Column()
     private createdAt!: Date
+
+    @ManyToOne(() => Role, {cascade: true}) // Fazendo relacionamento entre tabelas, cascade utilizado para realizar operaões em castata entre tabelas
+    role: Role
 
     @Column()
     private roleId: string
