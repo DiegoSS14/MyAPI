@@ -3,34 +3,34 @@ import { Column, Entity, ManyToOne } from "typeorm";
 import { Role } from "../../roles/entities/Role.js";
 
 @Entity('users')
-class User {
+export class User {
 
     @Column()
-    private id!: string
+    id?: string
 
     @Column()
-    private name: string
+    name: string
 
     @Column()
-    private email: string
+    email: string
 
     @Column()
-    private password: string
+    password: string
 
     @Column()
-    private avatar: string
+    avatar: string
 
     @Column()
-    private isAdmin: boolean
+    isAdmin: boolean
 
     @Column()
-    private createdAt!: Date
+    createdAt?: Date
 
-    @ManyToOne(() => Role, {cascade: true}) // Fazendo relacionamento entre tabelas, cascade utilizado para realizar operaões em castata entre tabelas
+    @ManyToOne(() => Role, { cascade: true }) // Fazendo relacionamento entre tabelas, cascade utilizado para realizar operaões em castata entre tabelas
     role: Role
 
     @Column()
-    private roleId: string
+    roleId: string
 
     constructor() {
         this.id = randomUUID()

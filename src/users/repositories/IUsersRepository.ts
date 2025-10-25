@@ -1,7 +1,7 @@
-import { User } from "../../entity/User.js"
+import { User } from "../entities/User.js"
 import { Role } from "../../roles/entities/Role.js"
 
-type UserDTO = {
+export type UserDTO = {
     name: string
     email: string
     password: string
@@ -22,9 +22,10 @@ export type UsersPaginateProperties = {
     data: User[]
 }
 
-export default interface IRolesRepository {
+export default interface IUsersRepository {
     findAll({ page, skip, take }: PaginateParams): Promise<UsersPaginateProperties>
     findByName(name: string): Promise<User | null>
+    findByEmail(email: string): Promise<User | null>
     findById(id: string): Promise<User | null>
     create({ name, email, password, isAdmin, role }: UserDTO): Promise<User>
     save(user: User): Promise<User>
