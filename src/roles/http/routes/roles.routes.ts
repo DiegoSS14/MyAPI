@@ -32,9 +32,10 @@ rolesRouter.post("/", celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required()
     })
-}), (request, response) => {
-    return _createRoleController.handle(request, response)
-})
+}),
+    (request, response) => {
+        return _createRoleController.handle(request, response)
+    })
 
 rolesRouter.put("/:id", celebrate({
     [Segments.PARAMS]: Joi.object().keys({

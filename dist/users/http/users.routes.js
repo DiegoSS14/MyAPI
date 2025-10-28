@@ -2,11 +2,8 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from "express";
 import { container } from "tsyringe";
 import { CreateUserController } from "../useCases/createUser/CreateUserController.js";
-
-const usersRouter = Router()
-
-const createUserController = container.resolve(CreateUserController)
-
+const usersRouter = Router();
+const createUserController = container.resolve(CreateUserController);
 usersRouter.post('/', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
@@ -15,11 +12,7 @@ usersRouter.post('/', celebrate({
         isAdmin: Joi.boolean().required(),
         roleId: Joi.string().uuid().required()
     })
-}),
-    (request, response) => {
-        return createUserController.handle(request, response)
-    }
-)
-
+}), (request, response) => {
+    return createUserController.handle(request, response);
+});
 export { usersRouter };
-

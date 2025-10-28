@@ -5,7 +5,6 @@ import { dataSource } from "../../shared/typeorm/index.js";
 import IUsersRepository, { PaginateParams, UserDTO, UsersPaginateProperties } from "./IUsersRepository.js";
 
 export class UsersRepository implements IUsersRepository {
-
     private repository: Repository<User>
 
     constructor() {
@@ -43,13 +42,15 @@ export class UsersRepository implements IUsersRepository {
     }
 
     async create({ name, email, password, isAdmin, role }: UserDTO): Promise<User> {
-        return this.repository.create({
+        const user = await this.repository.create({
             name,
             email,
             password,
             isAdmin,
             role
         })
+
+        return user
     }
 
     async save(user: User): Promise<User> {
