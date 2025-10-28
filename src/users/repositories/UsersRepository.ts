@@ -4,7 +4,7 @@ import { User } from "../entities/User.js";
 import { dataSource } from "../../shared/typeorm/index.js";
 import IUsersRepository, { PaginateParams, UserDTO, UsersPaginateProperties } from "./IUsersRepository.js";
 
-class UsersRepository implements IUsersRepository {
+export class UsersRepository implements IUsersRepository {
 
     private repository: Repository<User>
 
