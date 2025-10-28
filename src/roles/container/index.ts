@@ -7,11 +7,7 @@ import { DeleteRolesController } from '../useCases/deleteRole/DeleteRolesControl
 import { RolesRepository } from '../repositories/RolesRepository.js'
 import { IRolesRepository } from '../repositories/IRolesRepository.js'
 
-container.registerSingleton<IRolesRepository>(
-    'RolesRepository',
-    RolesRepository
-)
-
+container.registerSingleton<IRolesRepository>('RolesRepository',RolesRepository)
 container.registerSingleton('ListRolesController', ListRolesController)
 container.registerSingleton('ShowRolesController', ShowRolesController)
 container.registerSingleton('CreateRoleController', CreateRoleController)
