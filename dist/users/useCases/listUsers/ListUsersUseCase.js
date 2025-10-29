@@ -11,6 +11,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 import { inject, injectable } from "tsyringe";
+import { UsersRepository } from "../../repositories/UsersRepository.js";
 let ListUsersUseCase = class ListUsersUseCase {
     constructor(usersRepository) {
         this.usersRepository = usersRepository;
@@ -23,7 +24,7 @@ let ListUsersUseCase = class ListUsersUseCase {
 };
 ListUsersUseCase = __decorate([
     injectable(),
-    __param(0, inject('RolesRepository')),
-    __metadata("design:paramtypes", [Object])
+    __param(0, inject('UserRepository')),
+    __metadata("design:paramtypes", [UsersRepository])
 ], ListUsersUseCase);
 export { ListUsersUseCase };

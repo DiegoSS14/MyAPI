@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe"
-import IUsersRepository, { UsersPaginateProperties } from "../../repositories/IUsersRepository.js"
+import { UsersPaginateProperties } from "../../repositories/IUsersRepository.js"
+import { UsersRepository } from "../../repositories/UsersRepository.js"
 
 type ListUsersUseCaseParams = {
     page: number
@@ -9,8 +10,8 @@ type ListUsersUseCaseParams = {
 @injectable()
 export class ListUsersUseCase {
     constructor(
-        @inject('RolesRepository')
-        private usersRepository: IUsersRepository
+        @inject('UserRepository')
+        private usersRepository: UsersRepository
     ) { }
 
     async execute({ page, limit }: ListUsersUseCaseParams): Promise<UsersPaginateProperties> {

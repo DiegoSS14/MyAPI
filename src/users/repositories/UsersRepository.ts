@@ -50,7 +50,7 @@ export class UsersRepository implements IUsersRepository {
             role
         })
 
-        return user
+        return this.save(user)
     }
 
     async save(user: User): Promise<User> {

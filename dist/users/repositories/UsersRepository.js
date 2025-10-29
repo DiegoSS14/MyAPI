@@ -36,7 +36,7 @@ export class UsersRepository {
             isAdmin,
             role
         });
-        return user;
+        return this.save(user);
     }
     async save(user) {
         return this.repository.save(user);
