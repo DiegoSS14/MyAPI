@@ -1,4 +1,5 @@
 import { randomUUID } from "crypto";
+import { Exclude } from "class-transformer"
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { Role } from "../../roles/entities/Role.js";
 
@@ -15,6 +16,7 @@ export class User {
     email: string
 
     @Column()
+    @Exclude()
     password: string
 
     @Column({ nullable: true })

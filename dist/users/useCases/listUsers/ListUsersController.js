@@ -1,11 +1,12 @@
 import { ListUsersUseCase } from "./ListUsersUseCase.js";
 import { container } from "tsyringe";
+import { instanceToInstance } from "class-transformer";
 export class ListUsersController {
     async handle(request, response) {
         const listUsersUseCase = container.resolve(ListUsersUseCase);
         const page = request.query.page && Number(request.query.page) > 0 ? Number(request.query.page) : 1;
         const limit = request.query.limit && Number(request.query.limit) ? Number(request.query.limit) : 15;
         const users = await listUsersUseCase.execute({ page, limit });
-        return response.json(users);
+        return response.json(instanceToInstance(users));
     }
 }

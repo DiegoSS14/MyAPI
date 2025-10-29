@@ -8,6 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { randomUUID } from "crypto";
+import { Exclude } from "class-transformer";
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { Role } from "../../roles/entities/Role.js";
 let User = class User {
@@ -29,6 +30,7 @@ __decorate([
 ], User.prototype, "email", void 0);
 __decorate([
     Column(),
+    Exclude(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([

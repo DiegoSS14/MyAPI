@@ -1,5 +1,6 @@
 import { container } from "tsyringe";
 import { CreateUserUseCase } from './CreateUserUseCase.js';
+import { instanceToInstance } from 'class-transformer';
 export class CreateUserController {
     async handle(request, response) {
         const createRoleUseCase = container.resolve(CreateUserUseCase);
@@ -11,6 +12,6 @@ export class CreateUserController {
             isAdmin,
             roleId
         });
-        return response.status(201).json(user);
+        return response.status(201).json(instanceToInstance(user));
     }
 }
