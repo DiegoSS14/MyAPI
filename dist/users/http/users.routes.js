@@ -2,8 +2,10 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from "express";
 import { container } from "tsyringe";
 import { CreateUserController } from "../useCases/createUser/CreateUserController.js";
+import { ListUsersController } from '../useCases/listUsers/ListUsersController.js';
 const usersRouter = Router();
 const createUserController = container.resolve(CreateUserController);
+const listUsersController = container.resolve(ListUsersController);
 usersRouter.post('/', celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
@@ -14,5 +16,8 @@ usersRouter.post('/', celebrate({
     })
 }), (request, response) => {
     return createUserController.handle(request, response);
+});
+usersRouter.get('/', (request, response) => {
+    listUsersController.handle(request, response);
 });
 export { usersRouter };
