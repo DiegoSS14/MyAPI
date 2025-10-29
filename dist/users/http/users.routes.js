@@ -17,7 +17,12 @@ usersRouter.post('/', celebrate({
 }), (request, response) => {
     return createUserController.handle(request, response);
 });
-usersRouter.get('/', (request, response) => {
+usersRouter.get('/', celebrate({
+    [Segments.QUERY]: Joi.object().keys({
+        page: Joi.number(),
+        limit: Joi.number()
+    })
+}), (request, response) => {
     listUsersController.handle(request, response);
 });
 export { usersRouter };

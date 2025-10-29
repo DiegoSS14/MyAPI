@@ -23,7 +23,13 @@ usersRouter.post('/', celebrate({
     }
 )
 
-usersRouter.get('/', (request, response) => {
+usersRouter.get('/', celebrate({
+    [Segments.QUERY]: Joi.object().keys({
+        page: Joi.number(),
+        limit: Joi.number()
+    })
+}),
+    (request, response) => {
     listUsersController.handle(request, response)
 })
 
