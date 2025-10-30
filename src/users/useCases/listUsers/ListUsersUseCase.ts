@@ -10,7 +10,7 @@ type ListUsersUseCaseParams = {
 @injectable()
 export class ListUsersUseCase {
     constructor(
-        @inject('UserRepository')
+        @inject('UsersRepository')
         private usersRepository: UsersRepository
     ) { }
 

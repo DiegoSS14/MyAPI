@@ -3,11 +3,13 @@ import { Router } from "express";
 import { container } from "tsyringe";
 import { CreateUserController } from "../useCases/createUser/CreateUserController.js";
 import { ListUsersController } from '../useCases/listUsers/ListUsersController.js';
+import { CreateLoginController } from '../useCases/createLogin/CreateLoginController.js';
 
 const usersRouter = Router()
 
 const createUserController = container.resolve(CreateUserController)
 const listUsersController = container.resolve(ListUsersController)
+const createLoginController = container.resolve(CreateLoginController)
 
 usersRouter.post('/', celebrate({
     [Segments.BODY]: Joi.object().keys({
@@ -30,8 +32,20 @@ usersRouter.get('/', celebrate({
     })
 }),
     (request, response) => {
-    listUsersController.handle(request, response)
-})
+        listUsersController.handle(request, response)
+    }
+)
+
+usersRouter.post('/login', celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        email: Joi.string().email().required(),
+        password: Joi.string().required()
+    })
+}),
+    (request, response) => {
+        return createLoginController.handle(request, response)
+    }
+)
 
 export { usersRouter }
 

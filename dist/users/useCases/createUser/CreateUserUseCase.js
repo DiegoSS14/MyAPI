@@ -43,7 +43,7 @@ let CreateUserUseCase = class CreateUserUseCase {
 CreateUserUseCase = __decorate([
     injectable(),
     __param(0, inject('RolesRepository')),
-    __param(1, inject('UserRepository')),
+    __param(1, inject('UsersRepository')),
     __metadata("design:paramtypes", [RolesRepository,
         UsersRepository])
 ], CreateUserUseCase);

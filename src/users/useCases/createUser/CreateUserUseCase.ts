@@ -19,7 +19,7 @@ export class CreateUserUseCase {
     constructor(
         @inject('RolesRepository')
         private rolesRepository: RolesRepository,
-        @inject('UserRepository')
+        @inject('UsersRepository')
         private userRepository: UsersRepository
     ) { }
 

@@ -10,21 +10,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+import { compare } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
+import auth from "../../../config/auth.js";
+import pkg from "jsonwebtoken";
+const { sign } = pkg;
+import { AppError } from "../../../shared/error/AppError.js";
 import { UsersRepository } from "../../repositories/UsersRepository.js";
-let ListUsersUseCase = class ListUsersUseCase {
-    constructor(usersRepository) {
-        this.usersRepository = usersRepository;
+let CreateLoginUseCase = class CreateLoginUseCase {
+    constructor(userRepository) {
+        this.userRepository = userRepository;
     }
-    async execute({ page, limit }) {
-        const take = limit;
-        const skip = (Number(page) - 1) * take;
-        return this.usersRepository.findAll({ page, skip, take });
+    async execute({ email, password }) {
+        const user = await this.userRepository.findByEmail(email);
+        if (!user) {
+            throw new AppError('Email or password incorrect', 401);
+        }
+        const passwordConfirmed = await compare(password, user.password);
+        if (!passwordConfirmed) {
+            throw new AppError('Email or password incorrect', 401);
+        }
+        const token = sign({}, auth.jwt.secret, {
+            subject: String(user.id),
+            expiresIn: auth.jwt.expiresIn
+        });
+        return {
+            user: user,
+            token: token
+        };
     }
 };
-ListUsersUseCase = __decorate([
+CreateLoginUseCase = __decorate([
     injectable(),
     __param(0, inject('UsersRepository')),
     __metadata("design:paramtypes", [UsersRepository])
-], ListUsersUseCase);
-export { ListUsersUseCase };
+], CreateLoginUseCase);
+export { CreateLoginUseCase };
