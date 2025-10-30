@@ -6,6 +6,7 @@ import { ShowRolesController } from "../../useCases/showRole/ShowRoleController.
 import { CreateRoleController } from "../../useCases/createRole/CreateRoleController.js"
 import { EditRolesController } from "../../useCases/editRole/EditRolesController.js"
 import { DeleteRolesController } from "../../useCases/deleteRole/DeleteRolesController.js"
+import { isAuthenticated } from "../../../shared/middlewares/isAuthenticated.js"
 
 const rolesRouter = express()
 
@@ -14,6 +15,8 @@ const showRolesController = container.resolve(ShowRolesController)
 const _createRoleController = container.resolve(CreateRoleController)
 const editRolesController = container.resolve(EditRolesController)
 const deleteRolesController = container.resolve(DeleteRolesController)
+
+rolesRouter.use(isAuthenticated)
 
 
 rolesRouter.get('/', (request, response) => {

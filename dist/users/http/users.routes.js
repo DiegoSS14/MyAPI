@@ -4,11 +4,12 @@ import { container } from "tsyringe";
 import { CreateUserController } from "../useCases/createUser/CreateUserController.js";
 import { ListUsersController } from '../useCases/listUsers/ListUsersController.js';
 import { CreateLoginController } from '../useCases/createLogin/CreateLoginController.js';
+import { isAuthenticated } from '../../shared/middlewares/isAuthenticated.js';
 const usersRouter = Router();
 const createUserController = container.resolve(CreateUserController);
 const listUsersController = container.resolve(ListUsersController);
 const createLoginController = container.resolve(CreateLoginController);
-usersRouter.post('/', celebrate({
+usersRouter.post('/', isAuthenticated, celebrate({
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().required(),
         email: Joi.string().email().required(),
@@ -19,7 +20,7 @@ usersRouter.post('/', celebrate({
 }), (request, response) => {
     return createUserController.handle(request, response);
 });
-usersRouter.get('/', celebrate({
+usersRouter.get('/', isAuthenticated, celebrate({
     [Segments.QUERY]: Joi.object().keys({
         page: Joi.number(),
         limit: Joi.number()
