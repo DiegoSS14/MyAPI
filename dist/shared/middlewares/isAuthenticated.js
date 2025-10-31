@@ -1,6 +1,6 @@
+import pkg from "jsonwebtoken";
 import auth from "../../config/auth.js";
 import { AppError } from "../error/AppError.js";
-import pkg from "jsonwebtoken";
 const { verify, Secret } = pkg;
 export const isAuthenticated = (request, response, next) => {
     const authHeader = request.headers.authorization;
@@ -9,7 +9,9 @@ export const isAuthenticated = (request, response, next) => {
     }
     const token = authHeader?.replace('Bearer ', '');
     try {
-        verify(token, auth.jwt.secret);
+        const decodedToken = verify(token, auth.jwt.secret);
+        const { sub } = decodedToken;
+        request.user = { id: sub };
         return next();
     }
     catch {

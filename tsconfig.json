@@ -14,7 +14,8 @@
         "skipLibCheck": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "strictPropertyInitialization": false
+        "strictPropertyInitialization": false,
+        "typeRoots": ["./src/@types", "./node_modules/@types"] // Identifica sobrescritas de tipos
     },
     "include": ["src/**/*.ts"]
 }
