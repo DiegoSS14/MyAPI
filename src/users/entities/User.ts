@@ -31,7 +31,8 @@ export class User {
     @ManyToOne(() => Role, { cascade: true }) // Fazendo relacionamento entre tabelas, cascade utilizado para realizar operaões em castata entre tabelas
     role: Role
 
-    roleId: string
+    @Column({ nullable: true })
+    roleId?: string
 
     constructor() {
         this.id = randomUUID()

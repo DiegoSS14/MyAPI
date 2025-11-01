@@ -50,6 +50,10 @@ __decorate([
     ,
     __metadata("design:type", Role)
 ], User.prototype, "role", void 0);
+__decorate([
+    Column({ nullable: true }),
+    __metadata("design:type", String)
+], User.prototype, "roleId", void 0);
 User = __decorate([
     Entity('users'),
     __metadata("design:paramtypes", [])

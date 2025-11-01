@@ -2,3 +2,7 @@ Comandos Typeorm
 
 #Rodar migrations
 npx typeorm-ts-node-esm migration:run -- -d src/shared/typeorm/index.ts
+
+#Rodar seeds - É necessário dar o build antes porque esse comando roda o arquivo js diretamente
+npm run build
+node dist/shared/typeorm/seeds/admin.js

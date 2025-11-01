@@ -9,6 +9,7 @@
         "node:dev": "node --watch dist/shared/http/server.js",
         "dev": "concurrently \"npm run tsc:watch\" \"npm run node:dev\"",
         "typeorm": "typeorm-ts-node-esm",
+        "seed:admin": "typeorm-ts-node-esm",
         "start": "ts-node src/index.ts"
     },
     "author": "",
