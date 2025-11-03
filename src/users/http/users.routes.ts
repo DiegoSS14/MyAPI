@@ -1,16 +1,22 @@
-import { celebrate, Joi, Segments } from 'celebrate';
-import { Router } from "express";
-import { container } from "tsyringe";
-import { CreateUserController } from "../useCases/createUser/CreateUserController.js";
-import { ListUsersController } from '../useCases/listUsers/ListUsersController.js';
-import { CreateLoginController } from '../useCases/createLogin/CreateLoginController.js';
-import { isAuthenticated } from '../../shared/middlewares/isAuthenticated.js';
+import { celebrate, Joi, Segments } from 'celebrate'
+import { Router } from "express"
+import multer from 'multer'
+import { container } from "tsyringe"
+import { CreateUserController } from "../useCases/createUser/CreateUserController.js"
+import { ListUsersController } from '../useCases/listUsers/ListUsersController.js'
+import { CreateLoginController } from '../useCases/createLogin/CreateLoginController.js'
+import { isAuthenticated } from '../../shared/middlewares/isAuthenticated.js'
+import uploadConfig from "../../config/upload.js"
+import { UpdateAvatarController } from '../useCases/updateAvatar/UpdateAvatarController.js'
 
 const usersRouter = Router()
 
 const createUserController = container.resolve(CreateUserController)
 const listUsersController = container.resolve(ListUsersController)
 const createLoginController = container.resolve(CreateLoginController)
+const updateAvatarController = container.resolve(UpdateAvatarController)
+
+const upload = multer(uploadConfig)
 
 usersRouter.post('/', isAuthenticated, celebrate({
     [Segments.BODY]: Joi.object().keys({
@@ -45,6 +51,14 @@ usersRouter.post('/login', celebrate({
 }),
     (request, response) => {
         return createLoginController.handle(request, response)
+    }
+)
+
+usersRouter.patch('/avatar',
+    isAuthenticated,
+    upload.single('avatar'),
+    (request, response) => {
+        return updateAvatarController.handle(request, response)
     }
 )
 
