@@ -8,10 +8,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { randomUUID } from "crypto";
-import { Exclude } from "class-transformer";
+import { Exclude, Expose } from "class-transformer";
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { Role } from "../../roles/entities/Role.js";
 let User = class User {
+    get avatarUrl() {
+        if (!this.avatar) {
+            return null;
+        }
+        return `${process.env.AVATAR_URL}/${this.avatar}`;
+    }
     constructor() {
         this.id = randomUUID();
     }
@@ -54,6 +60,11 @@ __decorate([
     Column({ nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "roleId", void 0);
+__decorate([
+    Expose({ name: 'avatar_url' }),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [])
+], User.prototype, "avatarUrl", null);
 User = __decorate([
     Entity('users'),
     __metadata("design:paramtypes", [])

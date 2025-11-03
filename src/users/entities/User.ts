@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import { Exclude } from "class-transformer"
+import { Exclude, Expose } from "class-transformer"
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { Role } from "../../roles/entities/Role.js";
 
@@ -33,6 +33,15 @@ export class User {
 
     @Column({ nullable: true })
     roleId?: string
+
+    @Expose({name: 'avatar_url'})
+    get avatarUrl(): string | null {
+        if(!this.avatar) {
+            return null
+        }
+
+        return `${process.env.AVATAR_URL}/${this.avatar}`
+    }
 
     constructor() {
         this.id = randomUUID()

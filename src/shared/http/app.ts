@@ -7,10 +7,13 @@ import { routes } from './routes/index.js'
 import swaggerFile from '../../../swagger.json' with {type: "json"} // Importando com type json
 import { isCelebrateError, Segments } from 'celebrate'
 import '../container/index.js' // Importa a instância do repositório
+import path from 'node:path'
+import uploadConfig from '../../config/upload.js'
 
 const app = express()
 app.use(express.json())
 app.use(cors())
+app.use('/files', express.static(uploadConfig.directory))
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 app.use(routes)
 
