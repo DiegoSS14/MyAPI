@@ -363,6 +363,89 @@
                         "description": "Role not found"
                     }
                 }
+            },
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Return all users paginated",
+                "summary": "List all users",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of the page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Number of registers per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        },
+                        "style": "form"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucess.",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "per_page": 2,
+                                    "total": 2,
+                                    "current_page": 1,
+                                    "data": [
+                                        {
+                                            "id": "440e0ead-5427-4f28-a5a7-b7eed483b1f4",
+                                            "name": "teste",
+                                            "email": "teste@teste.com",
+                                            "avatar": null,
+                                            "isAdmin": true,
+                                            "created_at": "2025-11-04T18:30:22.000Z",
+                                            "roleId": "be3ba938-39e3-480d-a61e-0303a682e802",
+                                            "role": {
+                                                "id": "be3ba938-39e3-480d-a61e-0303a682e802",
+                                                "name": "tester",
+                                                "created_at": "2025-11-04T18:30:05.000Z"
+                                            },
+                                            "avatar_url": null
+                                        },
+                                        {
+                                            "id": "e9b042a3-b950-45ba-b9be-ac065e0999a2",
+                                            "name": "admin",
+                                            "email": "admin@gmail.com",
+                                            "avatar": "7a7e0968679402667af0_Diego-perfil.jpg",
+                                            "isAdmin": true,
+                                            "created_at": "2025-11-01T01:34:33.000Z",
+                                            "roleId": "66d47bbc-ba87-4553-8ee2-5d4317ae9a3d",
+                                            "role": {
+                                                "id": "66d47bbc-ba87-4553-8ee2-5d4317ae9a3d",
+                                                "name": "T.I.",
+                                                "created_at": "2025-11-01T01:34:33.000Z"
+                                            },
+                                            "avatar_url": "http://localhost:3000/files/7a7e0968679402667af0_Diego-perfil.jpg"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Invalid authentication token"
+                    }
+                }
             }
         }
     }
