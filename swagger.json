@@ -55,6 +55,9 @@
                     },
                     "400": {
                         "description": "Role already exists."
+                    },
+                    "401": {
+                        "description": "Invalid authentication token"
                     }
                 }
             },
@@ -112,6 +115,9 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Invalid authentication token"
                     }
                 }
             }
@@ -184,6 +190,9 @@
                     },
                     "404": {
                         "description": "Role not found"
+                    },
+                    "401": {
+                        "description": "Invalid authentication token"
                     }
                 }
             },
@@ -237,6 +246,9 @@
                     },
                     "404": {
                         "description": "Role not found"
+                    },
+                    "401": {
+                        "description": "Invalid authentication token"
                     }
                 }
             },
@@ -267,6 +279,9 @@
                     },
                     "404": {
                         "description": "Role not found"
+                    },
+                    "401": {
+                        "description": "Invalid authentication token"
                     }
                 }
             }
@@ -357,7 +372,7 @@
                         "description": "Email address already used."
                     },
                     "401": {
-                        "description": "invalid token"
+                        "description": "Invalid authentication token"
                     },
                     "404": {
                         "description": "Role not found"
@@ -445,6 +460,307 @@
                     "401": {
                         "description": "Invalid authentication token"
                     }
+                }
+            }
+        },
+        "/users/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Authenticate user and return token",
+                "summary": "User authentication",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User authenticated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "avatar": {
+                                                    "type": "string"
+                                                },
+                                                "isAdmin": {
+                                                    "type": "boolean"
+                                                },
+                                                "created_at": {
+                                                    "type": "string"
+                                                },
+                                                "role_id": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "user": {
+                                        "id": "440e0ead-5427-4f28-a5a7-b7eed483b1f4",
+                                        "name": "teste",
+                                        "email": "teste@teste.com",
+                                        "avatar": null,
+                                        "isAdmin": true,
+                                        "created_at": "2025-11-04T18:30:22.000Z",
+                                        "roleId": "be3ba938-39e3-480d-a61e-0303a682e802",
+                                        "avatar_url": null
+                                    },
+                                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NjIyODU1OTQsImV4cCI6MTc2MjM3MTk5NCwic3ViIjoiNDQwZTBlYWQtNTQyNy00ZjI4LWE1YTctYjdlZWQ0ODNiMWY0In0.qsECVSu51KOBXQ2vEgyzbfqeZ9HmdxL_Am5VT1b_oS8"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid authentication token"
+                    }
+                }
+            }
+        },
+        "/users/profile": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Show profile of authenticated user",
+                "summary": "Show user profile",
+                "responses": {
+                    "200": {
+                        "description": "Sucess.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "avatar": {
+                                            "type": "string"
+                                        },
+                                        "isAdmin": {
+                                            "type": "boolean"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "role_id": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "id": "440e0ead-5427-4f28-a5a7-b7eed483b1f4",
+                                    "name": "teste",
+                                    "email": "teste@teste.com",
+                                    "avatar": null,
+                                    "isAdmin": true,
+                                    "created_at": "2025-11-04T18:30:22.000Z",
+                                    "roleId": "be3ba938-39e3-480d-a61e-0303a682e802",
+                                    "avatar_url": null
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid authentication token"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Update a user profile",
+                "summary": "Update a user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    },
+                                    "old_password": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "name": "admin",
+                                "email": "admin@gmail.com",
+                                "password": "1234",
+                                "password_confirmation": "1234",
+                                "old_password": "123"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucess.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "avatar": {
+                                            "type": "string"
+                                        },
+                                        "isAdmin": {
+                                            "type": "boolean"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "role_id": {
+                                            "type": "string"
+                                        },
+                                        "avatar_url": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example": {
+                                    "id": "e9b042a3-b950-45ba-b9be-ac065e0999a2",
+                                    "name": "admin",
+                                    "email": "admin@gmail.com",
+                                    "avatar": "7a7e0968679402667af0_Diego-perfil.jpg",
+                                    "isAdmin": true,
+                                    "created_at": "2025-11-01T01:34:33.000Z",
+                                    "roleId": "66d47bbc-ba87-4553-8ee2-5d4317ae9a3d",
+                                    "avatar_url": "http://localhost:3000/files/7a7e0968679402667af0_Diego-perfil.jpg"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid authentication token"
+                    }
+                }
+            }
+        },
+        "/users/avatar": {
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Upload avatar image for autenticated user",
+                "summary": "Upload avatar image",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "avatar": {
+                                        "type": "string",
+                                        "format": "binaty"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Sucess.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "avatar": {
+                                        "type": "string"
+                                    },
+                                    "isAdmin": {
+                                        "type": "boolean"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    },
+                                    "role_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "id": "e9b042a3-b950-45ba-b9be-ac065e0999a2",
+                                    "name": "admin",
+                                    "email": "admin@gmail.com",
+                                    "avatar": "7a7e0968679402667af0_Diego-perfil.jpg",
+                                    "isAdmin": true,
+                                    "created_at": "2025-11-01T01:34:33.000Z",
+                                    "roleId": "66d47bbc-ba87-4553-8ee2-5d4317ae9a3d"
+                                }
+                            }
+                        }
+                    }
+                },
+                "401": {
+                    "description": "Invalid authentication token"
                 }
             }
         }
