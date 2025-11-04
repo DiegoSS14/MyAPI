@@ -61,7 +61,8 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "roleId", void 0);
 __decorate([
-    Expose({ name: 'avatar_url' }),
+    Expose({ name: 'avatar_url' }) // Adiciona campo avatar_url à entidade de forma dinâmica
+    ,
     __metadata("design:type", Object),
     __metadata("design:paramtypes", [])
 ], User.prototype, "avatarUrl", null);

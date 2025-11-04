@@ -34,7 +34,7 @@ export class User {
     @Column({ nullable: true })
     roleId?: string
 
-    @Expose({name: 'avatar_url'})
+    @Expose({name: 'avatar_url'}) // Adiciona campo avatar_url à entidade de forma dinâmica
     get avatarUrl(): string | null {
         if(!this.avatar) {
             return null

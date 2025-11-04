@@ -8,11 +8,13 @@ import { CreateLoginController } from '../useCases/createLogin/CreateLoginContro
 import { isAuthenticated } from '../../shared/middlewares/isAuthenticated.js';
 import uploadConfig from "../../config/upload.js";
 import { UpdateAvatarController } from '../useCases/updateAvatar/UpdateAvatarController.js';
+import { ShowProfileController } from '../useCases/showProfile/ShowProfileController.js';
 const usersRouter = Router();
 const createUserController = container.resolve(CreateUserController);
 const listUsersController = container.resolve(ListUsersController);
 const createLoginController = container.resolve(CreateLoginController);
 const updateAvatarController = container.resolve(UpdateAvatarController);
+const showProfileController = container.resolve(ShowProfileController);
 const upload = multer(uploadConfig);
 usersRouter.post('/', isAuthenticated, celebrate({
     [Segments.BODY]: Joi.object().keys({
@@ -43,5 +45,8 @@ usersRouter.post('/login', celebrate({
 });
 usersRouter.patch('/avatar', isAuthenticated, upload.single('avatar'), (request, response) => {
     return updateAvatarController.handle(request, response);
+});
+usersRouter.get('/profile', isAuthenticated, (request, response) => {
+    showProfileController.handle(request, response);
 });
 export { usersRouter };
