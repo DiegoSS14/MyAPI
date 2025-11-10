@@ -1,16 +1,12 @@
-import { NextFunction, Request, Response } from "express";
-import pkg, { Secret } from "jsonwebtoken";
-import auth from "../../config/auth.js";
-import { AppError } from "../error/AppError.js";
-const { verify, Secret } = pkg as any;
+import { NextFunction, Request, Response } from 'express'
+import { decode } from 'jsonwebtoken'
 
-type JwtPayloadProps = {
+type JWTPayloadProps = {
     sub: string
 }
 
-export const isAuthenticated = (request: Request, response: Response, next: NextFunction) => {
+export const addUserInfoToRequest = (request: Request, response: Response, next: NextFunction) => {
     const authHeader = request.headers.authorization
-
     if (!authHeader) {
         return response.status(401).json({
             error: true,
@@ -19,7 +15,7 @@ export const isAuthenticated = (request: Request, response: Response, next: Next
         })
     }
 
-    const token = authHeader?.replace('Bearer ', '')
+    const token = authHeader.replace('Bearer ', '')
     if (!token) {
         return response.status(401).json({
             error: true,
@@ -29,14 +25,13 @@ export const isAuthenticated = (request: Request, response: Response, next: Next
     }
 
     try {
-        const decodedToken = verify(token, auth.jwt.secret as Secret)
-        const { sub } = decodedToken as JwtPayloadProps
+        const { sub } = decode(token) as JWTPayloadProps
         request.user = { id: sub }
-        return next()
-    } catch {
+        return next() // Continua o fluxo da aplicação
+    } catch (error) {
         return response.status(401).json({
             error: true,
-            code: 'token.expired',
+            code: 'token.invalid',
             message: 'Acess token not present'
         })
     }

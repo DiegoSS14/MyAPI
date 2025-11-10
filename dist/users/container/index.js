@@ -6,7 +6,11 @@ import { ListUsersController } from "../useCases/listUsers/ListUsersController.j
 import { UpdateAvatarController } from "../useCases/updateAvatar/UpdateAvatarController.js";
 import { ShowProfileController } from "../useCases/showProfile/ShowProfileController.js";
 import { UpdateProfileController } from "../useCases/updateProfile/UpdateProfileController.js";
+import { RefreshTokenRepository } from "../repositories/RefreshTokenRepository.js";
+// Repositories
 container.registerSingleton('UsersRepository', UsersRepository);
+container.registerSingleton('RefreshTokenRepository', RefreshTokenRepository);
+// Controllers
 container.registerSingleton('CreateUserController', CreateUserController);
 container.registerSingleton('ListUsersController', ListUsersController);
 container.registerSingleton('CreateLoginController', CreateLoginController);

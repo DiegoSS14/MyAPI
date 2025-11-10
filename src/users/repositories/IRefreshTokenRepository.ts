@@ -1,6 +1,6 @@
 import { RefreshToken } from "../entities/RefreshToken.js";
 
-type RefreshTokenDTO = {
+export type RefreshTokenDTO = {
     user_id: string
     token: string
     valid: boolean

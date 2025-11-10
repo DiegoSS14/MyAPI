@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { UpdateAvatarUsecase } from "./updateAvatarUsecase.js";
+import { UpdateAvatarUsecase } from "./UpdateAvatarUseCase.js";
 import { instanceToInstance } from "class-transformer";
 
 export class UpdateAvatarController {

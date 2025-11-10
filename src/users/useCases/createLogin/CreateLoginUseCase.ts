@@ -1,11 +1,12 @@
 import { compare } from "bcryptjs";
+import pkg, { Secret } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 import auth from "../../../config/auth.js";
-import pkg from "jsonwebtoken";
-const { sign } = pkg as any;
 import { AppError } from "../../../shared/error/AppError.js";
 import { User } from "../../entities/User.js";
+import { RefreshTokenRepository } from "../../repositories/RefreshTokenRepository.js";
 import { UsersRepository } from "../../repositories/UsersRepository.js";
+const { sign } = pkg as any;
 
 export type CreateLoginDTO = {
     email: string
@@ -14,7 +15,8 @@ export type CreateLoginDTO = {
 
 export type IResponse = {
     user: User
-    token: string
+    acessToken: string
+    refreshToken: string
 }
 
 @injectable()
@@ -22,7 +24,9 @@ export class CreateLoginUseCase {
 
     constructor(
         @inject('UsersRepository')
-        private userRepository: UsersRepository
+        private userRepository: UsersRepository,
+        @inject('RefreshTokenRepository')
+        private refreshTokenRepository: RefreshTokenRepository
     ) { }
 
     async execute({ email, password }: CreateLoginDTO): Promise<IResponse> {
@@ -35,15 +39,30 @@ export class CreateLoginUseCase {
             throw new AppError('Email or password incorrect', 401)
         }
 
-
-        const token = sign({}, auth.jwt.secret as any, {
+        const acessToken = sign({}, auth.jwt.secret as Secret, {
             subject: String(user.id),
             expiresIn: auth.jwt.expiresIn
         } as any)
 
+        const expires = new Date(Date.now() + auth.refreshToken.duration)
+
+        const refreshToken = sign({}, auth.refreshToken.secret as Secret, {
+            subject: String(user.id),
+            expiresIn: auth.refreshToken.expiresIn
+        })
+
+            await this.refreshTokenRepository.create({
+                user_id: user.id!,
+                token: refreshToken,
+                valid: true,
+                expires: expires
+            })
+
+
         return {
-            user: user,
-            token: token
+            user,
+            acessToken,
+            refreshToken
         }
     }
 }

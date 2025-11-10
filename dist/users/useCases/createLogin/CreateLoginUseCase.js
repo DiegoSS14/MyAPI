@@ -11,15 +11,17 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 import { compare } from "bcryptjs";
+import pkg from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 import auth from "../../../config/auth.js";
-import pkg from "jsonwebtoken";
-const { sign } = pkg;
 import { AppError } from "../../../shared/error/AppError.js";
+import { RefreshTokenRepository } from "../../repositories/RefreshTokenRepository.js";
 import { UsersRepository } from "../../repositories/UsersRepository.js";
+const { sign } = pkg;
 let CreateLoginUseCase = class CreateLoginUseCase {
-    constructor(userRepository) {
+    constructor(userRepository, refreshTokenRepository) {
         this.userRepository = userRepository;
+        this.refreshTokenRepository = refreshTokenRepository;
     }
     async execute({ email, password }) {
         const user = await this.userRepository.findByEmail(email);
@@ -30,19 +32,33 @@ let CreateLoginUseCase = class CreateLoginUseCase {
         if (!passwordConfirmed) {
             throw new AppError('Email or password incorrect', 401);
         }
-        const token = sign({}, auth.jwt.secret, {
+        const acessToken = sign({}, auth.jwt.secret, {
             subject: String(user.id),
             expiresIn: auth.jwt.expiresIn
         });
+        const expires = new Date(Date.now() + auth.refreshToken.duration);
+        const refreshToken = sign({}, auth.refreshToken.secret, {
+            subject: String(user.id),
+            expiresIn: auth.refreshToken.expiresIn
+        });
+        await this.refreshTokenRepository.create({
+            user_id: user.id,
+            token: refreshToken,
+            valid: true,
+            expires: expires
+        });
         return {
-            user: user,
-            token: token
+            user,
+            acessToken,
+            refreshToken
         };
     }
 };
 CreateLoginUseCase = __decorate([
     injectable(),
     __param(0, inject('UsersRepository')),
-    __metadata("design:paramtypes", [UsersRepository])
+    __param(1, inject('RefreshTokenRepository')),
+    __metadata("design:paramtypes", [UsersRepository,
+        RefreshTokenRepository])
 ], CreateLoginUseCase);
 export { CreateLoginUseCase };

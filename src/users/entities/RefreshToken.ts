@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryColumn } from "typeorm"
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm"
 import crypto from "crypto"
 
 @Entity('refresh_tokens')
@@ -19,7 +19,7 @@ export class RefreshToken {
     @Column()
     expires: Date
 
-    @Column()
+    @CreateDateColumn()
     created_at: Date
 
     constructor() {
