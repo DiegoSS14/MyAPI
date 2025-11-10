@@ -9,6 +9,7 @@ import { ShowProfileController } from "../useCases/showProfile/ShowProfileContro
 import { UpdateProfileController } from "../useCases/updateProfile/UpdateProfileController.js";
 import { IRefreshTokenRepository } from "../repositories/IRefreshTokenRepository.js";
 import { RefreshTokenRepository } from "../repositories/RefreshTokenRepository.js";
+import { CreateAcessTokenAndRefreshTokenController } from "../useCases/createAcessTokenAndRefreshToken/CreateAcessTokenAndRefreshTokenController.js";
 
 // Repositories
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository)
@@ -18,6 +19,7 @@ container.registerSingleton<IRefreshTokenRepository>('RefreshTokenRepository', R
 container.registerSingleton('CreateUserController', CreateUserController)
 container.registerSingleton('ListUsersController', ListUsersController)
 container.registerSingleton('CreateLoginController', CreateLoginController)
+container.registerSingleton('CreateAcessTokenAndRefreshTokenController', CreateAcessTokenAndRefreshTokenController)
 container.registerSingleton('UpdateAvatarController', UpdateAvatarController)
 container.registerSingleton('ShowProfileController', ShowProfileController)
 container.registerSingleton('UpdateProfileController', UpdateProfileController)

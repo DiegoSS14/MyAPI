@@ -10,10 +10,13 @@ import uploadConfig from "../../config/upload.js";
 import { UpdateAvatarController } from '../useCases/updateAvatar/UpdateAvatarController.js';
 import { ShowProfileController } from '../useCases/showProfile/ShowProfileController.js';
 import { UpdateProfileController } from '../useCases/updateProfile/UpdateProfileController.js';
+import { CreateAcessTokenAndRefreshTokenController } from '../useCases/createAcessTokenAndRefreshToken/CreateAcessTokenAndRefreshTokenController.js';
+import { addUserInfoToRequest } from '../middlewares/addUserInfoToRequest.js';
 const usersRouter = Router();
 const createUserController = container.resolve(CreateUserController);
 const listUsersController = container.resolve(ListUsersController);
 const createLoginController = container.resolve(CreateLoginController);
+const createAcessTokenAndRefreshTokenController = container.resolve(CreateAcessTokenAndRefreshTokenController);
 const updateAvatarController = container.resolve(UpdateAvatarController);
 const showProfileController = container.resolve(ShowProfileController);
 const updateProfileController = container.resolve(UpdateProfileController);
@@ -35,7 +38,7 @@ usersRouter.get('/', isAuthenticated, celebrate({
         limit: Joi.number()
     })
 }), (request, response) => {
-    listUsersController.handle(request, response);
+    return listUsersController.handle(request, response);
 });
 usersRouter.post('/login', celebrate({
     [Segments.BODY]: Joi.object().keys({
@@ -44,6 +47,13 @@ usersRouter.post('/login', celebrate({
     })
 }), (request, response) => {
     return createLoginController.handle(request, response);
+});
+usersRouter.post('/refresh_token', addUserInfoToRequest, celebrate({
+    [Segments.BODY]: {
+        refresh_token: Joi.string().required()
+    }
+}), (request, response) => {
+    return createAcessTokenAndRefreshTokenController.handle(request, response);
 });
 usersRouter.patch('/avatar', isAuthenticated, upload.single('avatar'), (request, response) => {
     return updateAvatarController.handle(request, response);

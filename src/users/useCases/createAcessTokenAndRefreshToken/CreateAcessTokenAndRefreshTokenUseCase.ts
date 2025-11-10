@@ -17,7 +17,7 @@ type CreateAcessTokenAndRefreshTokenDTO = {
 export class CreateAcessTokenAndRefreshTokenUseCase {
 
     constructor(
-        @inject('RefreshTokenRepository')
+        @inject('UsersRepository')
         private userRepository: IUsersRepository,
         @inject('RefreshTokenRepository')
         private refreshTokenRepository: IRefreshTokenRepository
@@ -34,9 +34,9 @@ export class CreateAcessTokenAndRefreshTokenUseCase {
             throw new AppError('Refresh token is required', 401)
         }
 
-        const dateNow = new Date().getTime
+        const dateNow = new Date().getTime()
 
-        if(!refreshTokenExists.valid || refreshTokenExists.expires.getTime < dateNow) {
+        if(!refreshTokenExists.valid || refreshTokenExists.expires.getTime() < dateNow) {
             throw new AppError('Refresh token is invalid/expired', 401)
         }
 

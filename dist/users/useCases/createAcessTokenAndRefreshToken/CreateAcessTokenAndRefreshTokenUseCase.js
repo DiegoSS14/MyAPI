@@ -29,8 +29,8 @@ let CreateAcessTokenAndRefreshTokenUseCase = class CreateAcessTokenAndRefreshTok
         if (!refreshTokenExists) {
             throw new AppError('Refresh token is required', 401);
         }
-        const dateNow = new Date().getTime;
-        if (!refreshTokenExists.valid || refreshTokenExists.expires.getTime < dateNow) {
+        const dateNow = new Date().getTime();
+        if (!refreshTokenExists.valid || refreshTokenExists.expires.getTime() < dateNow) {
             throw new AppError('Refresh token is invalid/expired', 401);
         }
         await this.refreshTokenRepository.invalidate(refreshTokenExists);
@@ -58,7 +58,7 @@ let CreateAcessTokenAndRefreshTokenUseCase = class CreateAcessTokenAndRefreshTok
 };
 CreateAcessTokenAndRefreshTokenUseCase = __decorate([
     injectable(),
-    __param(0, inject('RefreshTokenRepository')),
+    __param(0, inject('UsersRepository')),
     __param(1, inject('RefreshTokenRepository')),
     __metadata("design:paramtypes", [Object, Object])
 ], CreateAcessTokenAndRefreshTokenUseCase);
