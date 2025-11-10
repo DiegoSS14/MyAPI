@@ -6,7 +6,7 @@ import { AppError } from "../../../shared/error/AppError.js";
 import { User } from "../../entities/User.js";
 import { RefreshTokenRepository } from "../../repositories/RefreshTokenRepository.js";
 import { UsersRepository } from "../../repositories/UsersRepository.js";
-const { sign } = pkg as any;
+const { sign } = pkg
 
 export type CreateLoginDTO = {
     email: string
@@ -49,14 +49,14 @@ export class CreateLoginUseCase {
         const refreshToken = sign({}, auth.refreshToken.secret as Secret, {
             subject: String(user.id),
             expiresIn: auth.refreshToken.expiresIn
-        })
+        } as any)
 
-            await this.refreshTokenRepository.create({
-                user_id: user.id!,
-                token: refreshToken,
-                valid: true,
-                expires: expires
-            })
+        await this.refreshTokenRepository.create({
+            user_id: user.id!,
+            token: refreshToken,
+            valid: true,
+            expires: expires
+        })
 
 
         return {

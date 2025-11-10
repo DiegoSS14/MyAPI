@@ -1,7 +1,5 @@
-import pkg from "jsonwebtoken";
-import auth from "../../config/auth.js";
-const { verify, Secret } = pkg;
-export const isAuthenticated = (request, response, next) => {
+import { decode } from 'jsonwebtoken';
+export const addUserInfoToRequest = (request, response, next) => {
     const authHeader = request.headers.authorization;
     if (!authHeader) {
         return response.status(401).json({
@@ -10,7 +8,7 @@ export const isAuthenticated = (request, response, next) => {
             message: 'Acess token not present'
         });
     }
-    const token = authHeader?.replace('Bearer ', '');
+    const token = authHeader.replace('Bearer ', '');
     if (!token) {
         return response.status(401).json({
             error: true,
@@ -19,15 +17,14 @@ export const isAuthenticated = (request, response, next) => {
         });
     }
     try {
-        const decodedToken = verify(token, auth.jwt.secret);
-        const { sub } = decodedToken;
+        const { sub } = decode(token);
         request.user = { id: sub };
-        return next();
+        return next(); // Continua o fluxo da aplicação
     }
-    catch {
+    catch (error) {
         return response.status(401).json({
             error: true,
-            code: 'token.expired',
+            code: 'token.invalid',
             message: 'Acess token not present'
         });
     }
