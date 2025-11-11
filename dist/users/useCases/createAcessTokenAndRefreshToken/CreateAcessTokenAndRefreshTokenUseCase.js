@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { inject, injectable } from "tsyringe";
-import { AppError } from "../../../shared/error/AppError.js";
-import jwtConfig from '../../../config/auth.js';
 import pkg from 'jsonwebtoken';
+import { inject, injectable } from "tsyringe";
+import jwtConfig from '../../../config/auth.js';
+import { AppError } from "../../../shared/error/AppError.js";
 const { sign } = pkg;
 let CreateAcessTokenAndRefreshTokenUseCase = class CreateAcessTokenAndRefreshTokenUseCase {
     constructor(userRepository, refreshTokenRepository) {

@@ -1,11 +1,10 @@
-import { inject, injectable } from "tsyringe"
-import IUsersRepository from "../../repositories/IUsersRepository.js"
+import pkg, { Secret } from 'jsonwebtoken';
+import { inject, injectable } from "tsyringe";
+import jwtConfig from '../../../config/auth.js';
+import { AppError } from "../../../shared/error/AppError.js";
 import { IRefreshTokenRepository } from "../../repositories/IRefreshTokenRepository.js";
-import { IResponse } from "../createLogin/CreateLoginUseCase.js"
-import { AppError } from "../../../shared/error/AppError.js"
-import jwtConfig from '../../../config/auth.js'
-import { Secret } from "jsonwebtoken"
-import pkg from 'jsonwebtoken'
+import IUsersRepository from "../../repositories/IUsersRepository.js";
+import { IResponse } from "../createLogin/CreateLoginUseCase.js";
 const { sign } = pkg
 
 type CreateAcessTokenAndRefreshTokenDTO = {
